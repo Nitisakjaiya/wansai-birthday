@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>Happy Wansai Day 🎉🥳</title>
+
+<style>
+/* ===== input / error ===== */
+input {
+    padding: 10px;
+    font-size: 18px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    text-align: center;
+    margin: 10px 0;
+}
+.error { color: red; font-size: 18px; }
+
+/* ===== layout ===== */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    text-align: center;
+    background: linear-gradient(#ffe6f0, #fff);
+}
+.screen {
+    display: none;
+    min-height: 100vh;
+    padding: 30px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.active { display: flex; }
+
+h1 { color: #ff3366; }
+p { font-size: 22px; }
+
+img {
+    width: 290px;
+    border-radius: 20px;
+    margin: 15px;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.choice {
+    cursor: pointer;
+    transition: transform 0.2s, opacity 0.3s;
+}
+.choice:hover { transform: scale(1.05); }
+
+button {
+    padding: 10px 22px;
+    border-radius: 10px;
+    border: none;
+    background: #ff3366;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* ===== หน้าแรก ===== */
+.icon-row {
+    display: flex;
+    gap: 30px;
+    margin: 20px 0;
+}
+.icon {
+    width: 240px;
+    height: 240px;
+    border-radius: 50%;
+    background: white;
+    padding: 10px;
+}
+
+/* ===== ข้อความใต้รูปเกม ===== */
+#leftText, #rightText {
+    font-size: 22px;
+    color: #ff3366;
+    min-height: 22px;
+}
+
+/* ===== shake ===== */
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-10px); }
+    50% { transform: translateX(10px); }
+    75% { transform: translateX(-10px); }
+    100% { transform: translateX(0); }
+}
+.shake { animation: shake 0.4s; }
+
+/* ===== back button ===== */
+.back-btn {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    background: rgba(255,255,255,0.9);
+    color: #ff3366;
+    border: none;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    font-size: 22px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    display: none;
+    z-index: 999;
+}
+.back-btn:hover { transform: scale(1.1); }
+
+/* ===== back button animation ===== */
+.back-btn {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    background: white;
+    color: #ff3366;
+    border: none;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    font-size: 22px;
+    cursor: pointer;
+    box-shadow: 0 6px 15px rgba(255, 51, 102, 0.35);
+    display: none;
+    z-index: 999;
+    animation: backFloat 2.5s ease-in-out infinite;
+    transition: transform 0.2s;
+}
+
+/* ลอยเบาๆ */
+@keyframes backFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+}
+
+/* hover */
+.back-btn:hover {
+    transform: scale(1.15);
+}
+
+/* ตอนกด */
+.back-btn:active {
+    animation: backClick 0.3s;
+}
+
+@keyframes backClick {
+    0% { transform: scale(1); }
+    50% { transform: scale(0.85) rotate(-10deg); }
+    100% { transform: scale(1); }
+}
+
+/* หัวใจลอย */
+.heart {
+    position: fixed;
+    font-size: 16px;
+    animation: floatUp 1s ease-out forwards;
+    pointer-events: none;
+}
+
+@keyframes floatUp {
+    from {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-40px) scale(1.6);
+    }
+}
+
+.polaroid-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.polaroid {
+    background: white;
+    padding: 10px 10px 20px;
+    width: 150px;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    transform: rotate(var(--rotate));
+    transition: transform 0.3s;
+}
+
+.polaroid img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+.polaroid p {
+    margin: 8px 0 0;
+    font-size: 14px;
+    color: #ff3366;
+    font-family: 'Comic Sans MS', cursive;
+}
+
+/* สุ่มเอียง */
+.polaroid:nth-child(odd) {
+    --rotate: -4deg;
+}
+.polaroid:nth-child(even) {
+    --rotate: 4deg;
+}
+
+/* hover */
+.polaroid:hover {
+    transform: scale(1.05) rotate(0deg);
+}
+
+
+
+</style>
+</head>
+
+<body>
+
+<!-- ปุ่มย้อนกลับ -->
+<button id="backBtn" class="back-btn" onclick="goBack()">⬅️</button>
+
+<!-- หน้าเริ่ม -->
+<div id="start" class="screen active" onclick="show('page1')">
+    <h1>🥳 Happy Wansai Day 🎉</h1>
+    <div class="icon-row">
+        <img src="icon1.png" class="icon">
+        <img src="icon2.jpg" class="icon">
+    </div>
+    <p>เค้าเขียนโค้ดไม่เก่ง แต่ตั้งใจมากนะ 😊</p>
+    <h1>🎉 Happy Wansai Day 🥳</h1>
+</div>
+
+<!-- หน้าเล่าเรื่อง 1 -->
+<div id="page1" class="screen">
+    <h1>วันเกิดเเล้วนะ เเก่ขึ้นอีกปี</h1>
+    <img src="p1.jpg">
+    <p>แต่ก็ยังสวยเหมือนเดิม 🥰</p>
+    <button onclick="show('page2')">💗</button>
+</div>
+
+<!-- หน้าเล่าเรื่อง 2 -->
+<div id="page2" class="screen">
+    <h1>ขนาดตอนนอนยังสวย</h1>
+    <div style="display:flex;gap:10px">
+        <img src="p2.jpg" style="width:300px">
+        <img src="p21.jpg" style="width:300px">
+        <img src="p22.jpg" style="width:300px">
+    </div>
+    <p>เลิฟยูๆๆๆ ❤️</p>
+    <button onclick="show('page3')">💗</button>
+</div>
+
+<!-- หน้าเล่าเรื่อง 3 -->
+
+<div id="page3" class="screen">
+    <h1>โมเมนต์น่ารัก ๆ 📸</h1>
+
+    <div class="polaroid-grid">
+        <div class="polaroid">
+            <img src="p3.jpg">
+            <p>💖</p>
+        </div>
+
+        <div class="polaroid">
+            <img src="p31.jpg">
+            <p>น่ารักจัง</p>
+        </div>
+
+        <div class="polaroid">
+            <img src="p32.jpg">
+            <p>คิดถึงนะ</p>
+        </div>
+
+        <div class="polaroid">
+            <img src="p33.jpg">
+            <p>งั่มมมมมม</p>
+        </div>
+    </div>
+    <p>ขอบคุณที่ให้เวลา โอกาสต่างๆ เสมอมา ❤️</p>
+
+    <button onclick="show('page4')">💗</button>
+</div>
+
+<!-- หน้าเล่าเรื่อง 4 -->
+<div id="page4" class="screen">
+    <h1>ขอให้เป็นปีที่ยิ้มเยอะที่สุดเลยนะ</h1>
+    <div style="display:flex;gap:10px">
+        <img src="p4.jpg" style="width:300px">
+        <img src="p41.jpg" style="width:300px">
+    </div>
+    <p>ผ่านอุปสรรคต่างไปได้อย่างราบรื่น เค้าจะคอยอยู่ตรงนี้ ✨</p>
+    <p>ขอบคุณที่ผ่านเข้ามาเจอกันนะ 💓💓</p>
+    <button onclick="show('page5')">💗</button>
+</div>
+
+<!-- หน้าเล่าเรื่อง 5 -->
+<div id="page5" class="screen">
+    <h1>และสุดท้าย… คิดถึงมากเลย</h1>
+    <img src="p5.jpg " style="width:320px">
+    <p>แล้วก็นอนเยอะๆ สุขภาพร่างกายเเข็งเเรง ✨</p>
+    <button onclick="show('passwordScreen')">ไปเล่นเกมกันนน 💕</button>
+</div>
+
+<!-- หน้ากรอกรหัส -->
+<div id="passwordScreen" class="screen">
+    <h1>ก่อนเล่นเกม 😏</h1>
+    <img src="password.jpg">
+    <p>มีคำถามม วันเกิดดะเดียคือวันที่เท่าไร</p>
+    <p>เช่น 22/01/2004</p>
+
+    <input type="text" id="passwordInput" placeholder=".....">
+    <p id="passwordError" class="error"></p>
+    <button onclick="checkPassword()">ยืนยัน 💗</button>
+</div>
+
+<!-- เกมเลือกช้อย -->
+<div id="choiceGame" class="screen">
+    <h1>แมวตัวโปรดของดะเดียคือ</h1>
+
+    <div class="container">
+        <div class="choice" onclick="checkChoice(false)">
+            <img src="choice1.jpg"><p>อลิซ</p>
+        </div>
+        <div class="choice" onclick="checkChoice(false)">
+            <img src="choice2.jpg"><p>เจอรี่</p>
+        </div>
+        <div class="choice" onclick="checkChoice(true)">
+            <img src="choice3.jpg"><p>เมี๊ยว 💖</p>
+        </div>
+        <div class="choice" onclick="checkChoice(false)">
+            <img src="choice4.jpg"><p>แมวใครก็ไม่รู้</p>
+        </div>
+    </div>
+    <p id="choiceError" class="error"></p>
+</div>
+
+<!-- เกมเลือกรูป -->
+<div id="game" class="screen">
+    <h1>เลือกสิ้ </h1>
+    <p id="gameText">ใครคือที่สุดของเธอ 😝</p>
+    <div class="container">
+        <div>
+            <img id="left" class="choice" onclick="choose(this)">
+            <p id="leftText"></p>
+        </div>
+        <div>
+            <img id="right" class="choice" onclick="choose(this)">
+            <p id="rightText"></p>
+        </div>
+    </div>
+</div>
+
+<!-- หน้าเลือกคุณ -->
+<div id="loveMessage" class="screen">
+    <h1>เลือกเค้าเเต่เเรกก็จบละ ชิชิชิ 😒</h1>
+    <img src="love.jpg">
+    <p>สุดท้ายวันใสก็เลือกเค้าเสมอมาแหละ ฮิฮิ ❤️</p>
+    <button onclick="show('moneyGame')">ไปกันต่อออ 😘</button>
+</div>
+
+<!-- เกมสุ่มรางวัล -->
+<div id="moneyGame" class="screen">
+    <h1>สุ่มรางวัล 🎁</h1>
+    <p>ลองเลือกรูปภาพที่ชอบที่สุดนะ ✨</p>
+
+    <div class="container">
+        <img src="card1.jpg" class="choice" onclick="pickReward('r1')" style="width:300px" ,style="height: 210px">
+        <img src="card2.jpg" class="choice" onclick="pickReward('r2')" style="width:300px" ,style="height: 210px">
+        <img src="card3.jpg" class="choice" onclick="pickReward('r3')" style="width:300px" ,style="height: 210px">
+        <img src="card4.jpg" class="choice" onclick="pickReward('r4')" style="width:300px" ,style="height: 210px">
+        <img src="card5.jpg" class="choice" onclick="pickReward('r5')" style="width:300px" ,style="height: 210px">
+        <img src="card6.jpg" class="choice" onclick="pickReward('r6')" style="width:300px" ,style="height: 210px">
+        <img src="card7.jpg" class="choice" onclick="pickReward('r7')" style="width:300px" ,style="height: 210px">
+        <img src="card8.jpg" class="choice" onclick="pickReward('r8')" style="width:300px" ,style="height: 210px">
+    </div>
+</div>
+
+<div id="rewardTemp" class="screen">
+    <h1>🎁 เธอสุ่มได้</h1>
+    <img id="rewardTempImg">
+    <p id="rewardTempText"></p>
+
+    <div style="display:flex;gap:15px">
+        <button id="rerollBtn" onclick="reroll()">🔁 สุ่มใหม่อีกครั้ง</button>
+        <button onclick="nextAfterReward()">➡️ ถัดไป</button>
+    </div>
+</div>
+
+
+<!-- หน้าเลือกสุดท้าย -->
+<div id="finalChoice" class="screen">
+    <h1>เลือกได้แค่อย่างเดียวน้าา555555 😎</h1>
+
+    <div class="container">
+        <div class="choice" onclick="chooseFinal(0)">
+            <img id="finalImg1">
+            <p id="finalText1"></p>
+        </div>
+
+        <div class="choice" onclick="chooseFinal(1)">
+            <img id="finalImg2">
+            <p id="finalText2"></p>
+        </div>
+    </div>
+</div>
+
+<!-- หน้าผลลัพธ์ -->
+<div id="finalResult" class="screen">
+    <h1>🎉 รางวัลสุดท้ายของเธอ 🥳</h1>
+    <img id="resultImg">
+    <h2 id="resultText"></h2>
+    <p>แคปหน้าจอมาให้เค้าเลยนะจ้ะ 💖</p>
+    <button onclick="show('Last')">...</button>
+</div>
+
+<!-- หน้าสุดท้าย -->
+<div id="Last" class="screen">
+    <p>❣️                                                         ❣️</p>
+    <p>  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</p>
+    <p>     สุดท้ายเเล้วววว เค้าตั้งใจมากๆๆที่สร้างเว็บนี้ มันอาจจะดูละอ่อนเเต่ก็555555</p>
+    <p>ถ้ามีเวลาก็อยากจะทำเกมให้เธอเล่นอีก55555 แต่ไม่ได้ พนสอบเเล้ว 🥲</p>
+    <p>ขอบคุณที่เล่นนะ 💓💓</p>
+    <p>🗣️ดะเดีย</p>
+    <p>  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</p>
+    <p>❣️                                                          ❣️</p>
+</div>
+
+<audio id="clickSound" src="ting.mp3"></audio>
+
+<script>
+/* ===== navigation with history ===== */
+let historyStack = [];
+
+function show(id) {
+    const current = document.querySelector('.screen.active');
+    if (current) historyStack.push(current.id);
+
+    document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+
+    backBtn.style.display = historyStack.length ? "block" : "none";
+}
+
+function goBack() {
+    createHeart();   // สร้างหัวใจ
+    clickSound.currentTime = 0;
+    clickSound.play();
+
+    if (!historyStack.length) return;
+
+    const prev = historyStack.pop();
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById(prev).classList.add('active');
+
+    backBtn.style.display = historyStack.length ? "block" : "none";
+}
+
+/* เอฟเฟกต์หัวใจ */
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerText = "💖";
+
+    const btn = document.getElementById("backBtn");
+    const rect = btn.getBoundingClientRect();
+
+    heart.style.left = rect.left + rect.width / 2 + "px";
+    heart.style.top = rect.top + "px";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 1000);
+}
+
+
+/* ===== password ===== */
+const correctPasswords = ["wansai","รักเธอ","ดะเดียย","11/05/2004", "w"]
+function checkPassword(){
+    if(correctPasswords.includes(passwordInput.value.trim())){
+        passwordError.innerText="";
+        show('choiceGame');
+    }else passwordError.innerText="บู๋ๆๆ 😝";
+}
+
+/* ===== choice game ===== */
+function checkChoice(correct){
+    clickSound.currentTime=0; clickSound.play();
+    if(correct) show('game');
+    else{
+        choiceError.innerText="ก็ชอบนะ แต่อีกนิดด 🧐";
+        choiceGame.classList.add("shake");
+        setTimeout(()=>choiceGame.classList.remove("shake"),400);
+    }
+}
+
+/* ===== image battle ===== */
+const myImage={src:"me.jpg",label:"ดะเดียย 💖"};
+const others=[
+ {src:"a.jpg",label:"matcha 🍵"},
+ {src:"b.jpg",label:"Stitch 😎"},
+ {src:"c.jpg",label:"Wansai 😏"},
+ {src:"d.jpg",label:"Cat"}
+];
+
+function loadBattle(){
+    const o=others[Math.floor(Math.random()*others.length)];
+    if(Math.random()<0.5){
+        left.src=myImage.src; leftText.innerText=myImage.label; left.dataset.correct=true;
+        right.src=o.src; rightText.innerText=o.label; right.dataset.correct=false;
+    }else{
+        right.src=myImage.src; rightText.innerText=myImage.label; right.dataset.correct=true;
+        left.src=o.src; leftText.innerText=o.label; left.dataset.correct=false;
+    }
+}
+function choose(img){
+    if(img.dataset.correct==="true") show('loveMessage');
+    else{ gameText.innerText="ลองใหม่ 😝"; loadBattle(); }
+}
+document.getElementById("game").addEventListener("click",loadBattle,{once:true});
+
+function pickReward(id){
+    clickSound.currentTime = 0;
+    clickSound.play();
+    show(id);
+}
+
+/* ===== reward system (2 ครั้ง) ===== */
+let rewardCount = 0;
+let pickedRewards = [];
+let canReroll = true;
+
+const rewardMap = {
+    r1: { text: "เสื้อผ้า 👗", img: "reward1.jpg" },
+    r2: { text: "กล่องสุ่ม Stitch ", img: "reward2.jpg" },
+    r3: { text: "เลี้ยงข้าวเค้าแทน 😆", img: "reward3.jpg" },
+    r4: { text: "ลิปสติก 💄", img: "reward4.jpg" },
+    r5: { text: "เงิน 1000 บาท 💸", img: "reward5.jpg" },
+    r6: { text: "Care bare 🧸", img: "reward6.jpg" },
+    r7: { text: "อะไรก็ได้ตามใจวันใส 😸", img: "reward7.jpg" },
+    r8: { text: "เค้าเองงงง5555", img: "reward8.jpg" }
+};
+
+function pickReward(id) {
+    if (rewardCount >= 2) return;
+
+    clickSound.currentTime = 0;
+    clickSound.play();
+
+    rewardCount++;
+    pickedRewards.push(rewardMap[id]);
+
+    document.getElementById("rewardTempImg").src = rewardMap[id].img;
+    document.getElementById("rewardTempText").innerText =
+        `สุ่มได้ ${rewardMap[id].text}`;
+
+    // ถ้าครั้งที่ 2 → ปิดปุ่มสุ่มใหม่
+    if (rewardCount === 2) {
+        document.getElementById("rerollBtn").style.display = "none";
+    } else {
+        document.getElementById("rerollBtn").style.display = "inline-block";
+    }
+
+    show("rewardTemp");
+}
+
+function reroll() {
+    canReroll = false;
+    show("moneyGame");
+}
+
+function nextAfterReward() {
+    // ถ้ามีรางวัลอย่างน้อย 1 ชิ้น → ไปหน้า final ทันที
+    if (pickedRewards.length === 1) {
+        // ใส่ซ้ำให้ครบ 2 ช่อง เพื่อไม่ให้หน้า final พัง
+        pickedRewards[1] = pickedRewards[0];
+    }
+
+    showFinalChoice();
+}
+
+function showFinalChoice() {
+    document.getElementById("finalImg1").src = pickedRewards[0].img;
+    document.getElementById("finalText1").innerText = pickedRewards[0].text;
+
+    document.getElementById("finalImg2").src = pickedRewards[1].img;
+    document.getElementById("finalText2").innerText = pickedRewards[1].text;
+
+    show("finalChoice");
+}
+
+function chooseFinal(i) {
+    const result = pickedRewards[i];
+    document.getElementById("resultImg").src = result.img;
+    document.getElementById("resultText").innerText = result.text;
+    show("finalResult");
+}
+
+
+</script>
+
+</body>
+</html>
