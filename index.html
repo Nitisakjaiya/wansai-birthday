@@ -73,7 +73,7 @@ button {
 }
 .icon {
     width: 240px;
-    height: 240px;
+    height: 320px;
     border-radius: 50%;
     background: white;
     padding: 10px;
@@ -219,7 +219,25 @@ button {
     transform: scale(1.05) rotate(0deg);
 }
 
+.fade-in {
+  animation: fade 1.2s ease;
+}
 
+@keyframes fade {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.subtitle {
+  font-size: 22px;
+  color: #ff6f91;
+  margin-top: 10px;
+}
 
 </style>
 </head>
@@ -231,13 +249,12 @@ button {
 
 <!-- หน้าเริ่ม -->
 <div id="start" class="screen active" onclick="show('page1')">
-    <h1>🥳 Happy Wansai Day 🎉</h1>
-    <div class="icon-row">
-        <img src="icon1.png" class="icon">
-        <img src="icon2.jpg" class="icon">
-    </div>
-    <p>เค้าเขียนโค้ดไม่เก่ง แต่ตั้งใจมากนะ 😊</p>
-    <h1>🎉 Happy Wansai Day 🥳</h1>
+    <h1 class="fade-in">🎉 Happy Wansai Day 🎉</h1>
+    <p class="subtitle">22 January 2026 💕</p>
+    <img class="avatar" src="icon2.jpg">
+
+    <p>สุขสันต์วันเกิดดด 😊</p>
+    <h1 class="fade-in">🎉 Happy Wansai Day 🎉</h1>
 </div>
 
 <!-- หน้าเล่าเรื่อง 1 -->
