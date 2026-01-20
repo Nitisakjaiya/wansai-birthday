@@ -239,6 +239,23 @@ button {
   margin-top: 10px;
 }
 
+.text-with-image {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;           /* ระยะห่างข้อความกับรูป */
+    justify-content: center;
+}
+
+.text-with-image img {
+    width: 100px;        /* ปรับขนาดรูปตรงนี้ */
+    height: auto;
+    border-radius: 8px; /* มนๆ น่ารัก */
+}
+.text-with-image span {
+    font-size: 22px;   /* 👈 ปรับตรงนี้ */
+    font-weight: 500;  /* ทำให้ดูเด่นขึ้น */
+}
+
 </style>
 </head>
 
@@ -304,6 +321,7 @@ button {
         </div>
     </div>
     <p>ขอบคุณที่ให้เวลา โอกาสต่างๆ เสมอมา ❤️</p>
+    <p>รู้สึกโชคดีที่มีเธอจัง 🌻</p>
 
     <button onclick="show('page4')">💗</button>
 </div>
@@ -324,21 +342,50 @@ button {
 <div id="page5" class="screen">
     <h1>และสุดท้าย… คิดถึงมากเลย</h1>
     <img src="p5.jpg " style="width:320px">
-    <p>แล้วก็นอนเยอะๆ สุขภาพร่างกายเเข็งเเรง ✨</p>
-    <button onclick="show('passwordScreen')">ไปเล่นเกมกันนน 💕</button>
+    <p>แล้วก็นอนเยอะๆ สุขภาพร่างกายเเข็งเเรง เพี้ยงๆ✨</p>
+    <button onclick="show('passwordScreen')">... 💕</button>
 </div>
 
 <!-- หน้ากรอกรหัส -->
 <div id="passwordScreen" class="screen">
     <h1>ก่อนเล่นเกม 😏</h1>
     <img src="password.jpg">
-    <p>มีคำถามม วันเกิดดะเดียคือวันที่เท่าไร</p>
+    <p>มีคำถามม วันเกิดดะเดียคือวันที่เท่าไร 😋</p>
     <p>เช่น 22/01/2004</p>
 
     <input type="text" id="passwordInput" placeholder=".....">
     <p id="passwordError" class="error"></p>
     <button onclick="checkPassword()">ยืนยัน 💗</button>
 </div>
+<!-- หน้ากรอกรหัส2 -->
+<div id="password2" class="screen">
+    <h1>ข้อที่ 2 😏</h1>
+    <img src="password2.jpg">
+    <p>ตัวละครที่ดะเดียชอบในเรื่อง one piece คืออ</p>
+    <p>🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊</p>
+
+    <input type="text" id="passwordInput2" placeholder=".....">
+    <p id="passwordError" class="error"></p>
+    <button onclick="checkPassword2()">ยืนยัน 💗</button>
+</div>
+<!-- หน้ากรอกรหัส3-->
+<div id="password3" class="screen">
+    <h1>ข้อสุดท้าย 😏</h1>
+    <img src="password3.jpg">
+    <p>วันใสรักเค้ามั้ยย 😘 </p>
+    <p>เช่น "เค้ารักดะเดีย"</p>
+
+    <input type="text" id="passwordInput3" placeholder=".....">
+    <p id="passwordError" class="error"></p>
+    <button onclick="checkPassword3()">ยืนยัน 💗</button>
+</div>
+<!-- หน้ากรอกรหัส4-->
+<div id="password4" class="screen">
+    <img src="password4.jpg"  style="width:300px" , style="height:300px"  >
+    <p>เค้าก็รักเธอนะ 😘 </p>
+    <button onclick="show('choiceGame')">💗</button>
+</div>
+
 
 <!-- เกมเลือกช้อย -->
 <div id="choiceGame" class="screen">
@@ -355,7 +402,7 @@ button {
             <img src="choice3.jpg"><p>เมี๊ยว 💖</p>
         </div>
         <div class="choice" onclick="checkChoice(false)">
-            <img src="choice4.jpg"><p>แมวใครก็ไม่รู้</p>
+            <img src="choice4.jpg"><p>แมวpkpp</p>
         </div>
     </div>
     <p id="choiceError" class="error"></p>
@@ -389,7 +436,7 @@ button {
 <div id="moneyGame" class="screen">
     <h1>สุ่มรางวัล 🎁</h1>
     <p>เกมนี้จะสุ่มของรางวัล โดยให้เธอเลือกรูปที่ชอบที่สุดนะ ✨</p>
-    <p>รางวัลจะไม่เหมือนกันในเเต่ละรูป และจะให้สุ่มได้ 2 ครั้งเท่านั้น 🤭</p>
+    <p>รางวัลจะไม่เหมือนกันในเเต่ละรูป และจะให้สุ่มได้ 2 ครั้งเท่านั้นนะ 🤭</p>
 
     <div class="container">
         <img src="card1.jpg" class="choice" onclick="pickReward('r1')" style="width:300px" ,style="height: 210px">
@@ -400,6 +447,7 @@ button {
         <img src="card6.jpg" class="choice" onclick="pickReward('r6')" style="width:300px" ,style="height: 210px">
         <img src="card7.jpg" class="choice" onclick="pickReward('r7')" style="width:300px" ,style="height: 210px">
         <img src="card8.jpg" class="choice" onclick="pickReward('r8')" style="width:300px" ,style="height: 210px">
+        <img src="card9.jpg" class="choice" onclick="pickReward('r9')" style="width:300px" ,style="height: 210px">
     </div>
 </div>
 
@@ -445,9 +493,16 @@ button {
 <div id="Last" class="screen">
     <p>❣️                                                         ❣️</p>
     <p>  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</p>
-    <p>     สุดท้ายเเล้วววว เค้าตั้งใจมากๆๆที่สร้างเว็บนี้ มันอาจจะดูละอ่อนเเต่ก็555555</p>
+    <p>      เค้าตั้งใจมากๆๆที่สร้างเว็บนี้ ก็ถือว่าพอใจที่ได้ทำอะไรใหม่ๆ</p>
     <p>ถ้ามีเวลาก็อยากจะทำเกมให้เธอเล่นอีก55555 แต่ไม่ได้ พนสอบเเล้ว 🥲</p>
-    <p>ขอบคุณที่เล่นนะ 💓💓</p>
+    <p>ขอบคุณที่เล่นนะ และ ขอบคุณที่อยู่ด้วยกันมาเสมอ 💓💓</p>
+
+    <div class="text-with-image">
+        <span>ใจเย็นๆกับดะเดียด้วย ดะเดียตามไม่ทัน</span>
+        <img src="OA.jpg" alt="OA">
+    </div>
+
+    <p>🌸ชอบเธอนะ </p>
     <p>🗣️ดะเดีย</p>
     <p>  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</p>
     <p>❣️                                                          ❣️</p>
@@ -501,14 +556,34 @@ function createHeart() {
 }
 
 
-/* ===== password ===== */
+/* ===== password1 ===== */
 const correctPasswords = ["wansai","รักเธอ","ดะเดียย","11/05/2004", "w"]
 function checkPassword(){
     if(correctPasswords.includes(passwordInput.value.trim())){
         passwordError.innerText="";
-        show('choiceGame');
+        show('password2');
     }else passwordError.innerText="บู๋ๆๆ 😝";
 }
+
+/* ===== password2 ===== */
+const correctPasswords2 = ["zoro","โซโล","โซโร","11/05/2004", "w"]
+function checkPassword2(){
+    if(correctPasswords2.includes(passwordInput2.value.trim())){
+        passwordError.innerText="";
+        show('password3');
+    }else passwordError.innerText="บู๋ๆๆ 😝";
+}
+
+/* ===== password3 ===== */
+const correctPasswords3 = ["รัก","ช่าย","ใช่","ร้าก", "เค้ารักดะเดีย" ,"w"]
+function checkPassword3(){
+    if(correctPasswords3.includes(passwordInput3.value.trim())){
+        passwordError.innerText="";
+        show('password4');
+    }else passwordError.innerText="บู๋ๆๆ 😝";
+}
+
+
 
 /* ===== choice game ===== */
 function checkChoice(correct){
@@ -559,13 +634,14 @@ let canReroll = true;
 
 const rewardMap = {
     r1: { text: "เสื้อผ้า 👗", img: "reward1.jpg" },
-    r2: { text: "กล่องสุ่ม Stitch ", img: "reward2.jpg" },
+    r2: { text: "กล่องสุ่ม Stitch 😮 ", img: "reward2.jpg" },
     r3: { text: "เลี้ยงข้าวเค้าแทน 😆", img: "reward3.jpg" },
     r4: { text: "ลิปสติก 💄", img: "reward4.jpg" },
     r5: { text: "เงิน 1000 บาท 💸", img: "reward5.jpg" },
     r6: { text: "Care bare 🧸", img: "reward6.jpg" },
     r7: { text: "อะไรก็ได้ตามใจวันใส 😸", img: "reward7.jpg" },
-    r8: { text: "เค้าเองงงง5555", img: "reward8.jpg" }
+    r8: { text: "เค้าเองงงง5555 😎", img: "reward8.jpg" },
+    r9: { text: "เครื่องสำอาง ✨", img: "reward9.jpg" }
 };
 
 function pickReward(id) {
@@ -628,5 +704,3 @@ function chooseFinal(i) {
 
 </body>
 </html>
-
-
